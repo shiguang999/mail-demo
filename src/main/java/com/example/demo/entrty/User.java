@@ -6,6 +6,8 @@ public class User {
     private String password;
     private String phone;
     private String loginname;
+    private Integer start;
+    private Integer end;
 
     public Integer getId() {
         return id;
@@ -45,5 +47,20 @@ public class User {
 
     public void setLoginname(String loginname) {
         this.loginname = loginname;
+    }
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getEnd() {
+        return end;
+    }
+
+    public void setEnd(Integer end) {
+        this.end = end;
     }
 }

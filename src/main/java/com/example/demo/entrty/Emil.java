@@ -7,9 +7,29 @@ public class Emil {
     private String username;
     private Integer status;
     private String phone;
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getEnd() {
+        return end;
+    }
+
+    public void setEnd(Integer end) {
+        this.end = end;
+    }
+
     private String faname;
     private String message;
     private Date time;
+    private Integer start;
+    private Integer end;
+
 
     public Integer getId() {
         return id;

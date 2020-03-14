@@ -27,39 +27,39 @@
     <div class="layadmin-user-login-main">
         <div class="layadmin-user-login-box layadmin-user-login-header">
         </div>
-        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
-
-            <div class="layui-trans layadmin-user-login-footer">
-                <p>Copyright © 2018 </p>
-                <p><a href="javascript:;">FH_EDUCATION</a> All Rights Reserved.</p>
-            </div>
-            <div class="layui-tab  layui-tab-brief">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">账号密码登录</li>
-                    <li>手机登录</li>
-                    <li>注册</li>
-                </ul>
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
+        <div class="layui-trans layadmin-user-login-footer">
+            <p>Copyright © 2018 </p>
+            <p><a href="javascript:;">FH_EDUCATION</a> All Rights Reserved.</p>
+        </div>
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">账号密码登录</li>
+                <li>手机登录</li>
+                <li>注册</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
-                            <input type="text" name="username" id="LAY-user-login-username" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
+                            <input type="text" name="username" id="LAY-user-login-username-1" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="upassword" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
+                            <input type="password" name="upassword" id="LAY-user-login-password-1" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 录</button>
                         </div>
                     </div>
-
-                    <div class="layui-tab-item">
+                </div>
+                <div class="layui-tab-item layui-show">
+                    <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                         <div class="layui-form-item">
                             <div class="layui-row">
                                 <div class="layui-col-xs7">
                                     <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-vercode">&#xe672;</label>
-                                    <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verType="tips" lay-verify="required" placeholder="手机号" class="layui-input">
+                                    <input type="text" name="vercode" id="LAY-user-login-vercode-2" lay-verType="tips" lay-verify="required" placeholder="手机号" class="layui-input">
                                 </div>
                                 <div class="layui-col-xs5">
                                     <div style="margin-left: 10px;">
@@ -70,36 +70,42 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="upassword" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="输入验证码" class="layui-input">
+                            <input type="password" name="upassword" id="LAY-user-login-password-2" lay-verType="tips" lay-verify="required" placeholder="输入验证码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 录</button>
+                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit-2">登 录</button>
                         </div>
                     </div>
-
-                    <div class="layui-tab-item">
-
+                </div>
+                <div class="layui-tab-item layui-show">
+                    <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
-                            <input type="text" name="username" id="LAY-user-login-username" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
+                            <input type="text" name="name" id="LAY-user-login-name" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
+                            <input type="text" name="loginname" id="LAY-user-login-loginname" lay-verType="tips" lay-verify="required" placeholder="登录名" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
+                            <input type="text" name="phone" id="LAY-user-login-phone" lay-verType="tips" lay-verify="required" placeholder="手机号" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="upassword" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
+                            <input type="password" name="password" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">注册</button>
+                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit-3">注册</button>
                         </div>
-
                     </div>
                 </div>
+
+
             </div>
-
-
-
-
-
         </div>
+
+
     </div>
 
 
@@ -142,8 +148,9 @@
 
     //提交
     layui.form.on('submit(LAY-user-login-submit)', function(obj) {
-        obj.field.codeKey = codeKey;
+        //obj.field.codeKey = codeKey;
         layer.load(1);
+        console.log(obj.field)
         $.post("login", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
@@ -158,6 +165,42 @@
         }, "json");
     });
 
+    //手机号注册
+    layui.form.on('submit(LAY-user-login-submit-2)', function(obj) {
+        //obj.field.codeKey = codeKey;
+        //layer.log(1);
+        console.log(obj.field)
+        $.post("addUser", obj.field, function(result) {
+            if (result.code == 200) {
+                layer.msg(result.msg,{icon: 1});
+                localStorage.setItem("user", JSON.stringify(result.data));
+                setTimeout(function() {
+                    location.replace("<%=request.getContextPath()%>/tomain");
+                }, 1000);
+            } else {
+                layer.closeAll('loading');
+                layer.msg(result.msg,{icon: 2});
+            }
+        }, "json");
+    });
 
+    //注册
+    layui.form.on('submit(LAY-user-login-submit-3)', function(obj) {
+        //obj.field.codeKey = codeKey;
+        //layer.log(1);
+        console.log(obj.field)
+        $.post("addUser", obj.field, function(result) {
+            if (result.code == 200) {
+                layer.msg(result.msg,{icon: 1});
+                localStorage.setItem("user", JSON.stringify(result.data));
+                setTimeout(function() {
+                    location.replace("<%=request.getContextPath()%>/tomain");
+                }, 1000);
+            } else {
+                layer.closeAll('loading');
+                layer.msg(result.msg,{icon: 2});
+            }
+        }, "json");
+    });
 </script>
 </html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.MailDao" >
+
+    <select id="queryUser" parameterType="com.example.demo.entrty.User" resultType="com.example.demo.entrty.User">
+        select * from user
+        <where>
+            <if test="user.id != null">
+                and id = #{user.id}
+            </if>
+            <if test="user.name != null">
+                and name = #{user.name}
+            </if>
+            <if test="user.password != null">
+                and password = #{user.password}
+            </if>
+            <if test="user.phone != null">
+                and phone = #{user.phone}
+            </if>
+            <if test="user.loginname != null">
+                and loginname = #{user.loginname}
+            </if>
+        </where>
+        limit #{user.start},#{user.end}
+    </select>
+
+    <select id="queryMail" parameterType="com.example.demo.entrty.Emil" resultType="com.example.demo.entrty.Emil">
+        select * from mail
+        <where>
+            <if test="user.id != null">
+                and id = #{user.id}
+            </if>
+            <if test="user.username != null">
+                and username = #{user.username}
+            </if>
+            <if test="user.status != null">
+                and status = #{user.status}
+            </if>
+            <if test="user.phone != null">
+                and phone = #{user.phone}
+            </if>
+            <if test="user.faname != null">
+                and faname = #{user.faname}
+            </if>
+            <if test="user.message != null">
+                and message = #{user.message}
+            </if>
+            <if test="user.time != null">
+                and time = #{user.time}
+            </if>
+        </where>
+        limit #{user.start},#{user.end} order by time
+    </select>
+
+    <update id="updateUser" parameterType="com.example.demo.entrty.User">
+        update user set password = #{user.password} where loginname = #{user.loginname}
+    </update>
+
+    <insert id="add" parameterType="com.example.demo.entrty.User">
+        insert into user (name,password,phone,loginname) values (#{user.name},#{user.password},#{user.phone},#{user.loginname})
+    </insert>
+</mapper>

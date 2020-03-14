@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entrty.Emil;
 import com.example.demo.entrty.User;
 import com.example.demo.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,18 @@ public class MailController {
         return service.queryUser(user);
     }
 
+    @PostMapping("addOrUpdateUser")
+    @ResponseBody
+    public String updateUser(User user){
+        return service.updateUser(user);
+    }
+
+    @PostMapping("addUser")
+    @ResponseBody
+    public String addUser(User user){
+        return service.addUser(user);
+    }
+
     @PostMapping("login")
     public String login(User user){
         if(null == user.getLoginname()){
@@ -55,4 +68,12 @@ public class MailController {
         }
         return "index";
     }
+
+    @PostMapping("queryMail")
+    @ResponseBody
+    public List<Emil> queryMail(Emil user){
+        return service.queryMail(user);
+    }
+
+
 }
