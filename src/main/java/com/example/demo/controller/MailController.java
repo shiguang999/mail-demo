@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MailController {
@@ -50,8 +52,10 @@ public class MailController {
 
     @PostMapping("addUser")
     @ResponseBody
-    public String addUser(User user){
-        return service.addUser(user);
+    public Map addUser(User user){
+        Map map = new HashMap();
+        map.put("msg",service.addUser(user));
+        return map;
     }
 
     @PostMapping("login")

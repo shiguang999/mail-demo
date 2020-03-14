@@ -189,8 +189,9 @@
         //obj.field.codeKey = codeKey;
         //layer.log(1);
         console.log(obj.field)
+        layer.msg(1);
         $.post("addUser", obj.field, function(result) {
-            layer.msg(1);
+            layer.msg(2);
             alert(result);
             if (result == 'ok') {
                 layer.msg(result,{icon: 1});
