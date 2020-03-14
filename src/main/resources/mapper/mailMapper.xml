@@ -21,7 +21,9 @@
                 and loginname = #{user.loginname}
             </if>
         </where>
-        limit #{user.start},#{user.end}
+        <if test="user.start != null and user.end != null">
+            limit #{user.start},#{user.end}
+        </if>
     </select>
 
     <select id="queryMail" parameterType="com.example.demo.entrty.Emil" resultType="com.example.demo.entrty.Emil">
@@ -49,7 +51,9 @@
                 and time = #{user.time}
             </if>
         </where>
-        limit #{user.start},#{user.end} order by time
+        <if test="user.start != null and user.end != null">
+            limit #{user.start},#{user.end}
+        </if>
     </select>
 
     <update id="updateUser" parameterType="com.example.demo.entrty.User">
