@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>用户登录</title>
+    <link rel="stylesheet" href="/static/commons/assets/libs/layui/css/layui.css" />
+    <link rel="stylesheet" href="/static/commons/assets/css/login.css" media="all">
+    <link href="/static/commons/ztree/css/bootstrapStyle/bootstrapStyle.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/commons/assets/css/comment.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/commons/myface/iconfont.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="/static/commons/assets/libs/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/static/commons/assets/libs/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/static/commons/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="/static/commons/dateFormat.js"></script>
+    <style type="text/css">
+        body{
+            background:#fff url(/static/commons/assets/images/movie4.jpg) no-repeat left top;
+            background-size:100%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layadmin-user-login" id="LAY-user-login">
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+        </div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+
+            <div class="layui-trans layadmin-user-login-footer">
+                <p>Copyright © 2018 </p>
+                <p><a href="javascript:;">FH_EDUCATION</a> All Rights Reserved.</p>
+            </div>
+            <div class="layui-tab  layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">账号密码登录</li>
+                    <li>手机登录</li>
+                    <li>注册</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
+                            <input type="text" name="username" id="LAY-user-login-username" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
+                            <input type="password" name="upassword" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 录</button>
+                        </div>
+                    </div>
+
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item">
+                            <div class="layui-row">
+                                <div class="layui-col-xs7">
+                                    <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-vercode">&#xe672;</label>
+                                    <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verType="tips" lay-verify="required" placeholder="手机号" class="layui-input">
+                                </div>
+                                <div class="layui-col-xs5">
+                                    <div style="margin-left: 10px;">
+                                        <button type="button" 	class="layui-btn layui-btn-sm layui-btn-danger">获取验证码</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
+                            <input type="password" name="upassword" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="输入验证码" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 录</button>
+                        </div>
+                    </div>
+
+                    <div class="layui-tab-item">
+
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
+                            <input type="text" name="username" id="LAY-user-login-username" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
+                            <input type="password" name="upassword" id="LAY-user-login-password" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">注册</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+    <script>
+        //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function(){
+            var element = layui.element;
+
+            //…
+        });
+    </script>
+</div>
+</body>
+<script type="text/javascript">
+
+    // $(function(){
+    //     getCode();  //获取验证码
+    //     $("#LAY-user-get-vercode").click(function(){
+    //         getCode();
+    //     });
+    // })
+    // //获取验证码
+    // var codeKey = null;
+    // function getCode(){
+    //
+    //     if(codeKey==null){
+    //         codeKey = guid();
+    //     }
+    //     $("#LAY-user-get-vercode").attr("src","image/captcha?codeKey="+codeKey+"&n="+Math.random());
+    // }
+    //生成uuid
+    function guid() {
+        function S4() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        }
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
+
+    //提交
+    layui.form.on('submit(LAY-user-login-submit)', function(obj) {
+        obj.field.codeKey = codeKey;
+        layer.load(1);
+        $.post("login", obj.field, function(result) {
+            if (result.code == 200) {
+                layer.msg(result.msg,{icon: 1});
+                localStorage.setItem("user", JSON.stringify(result.data));
+                setTimeout(function() {
+                    location.replace("<%=request.getContextPath()%>/tomain");
+                }, 1000);
+            } else {
+                layer.closeAll('loading');
+                layer.msg(result.msg,{icon: 2});
+            }
+        }, "json");
+    });
+
+
+</script>
+</html>
