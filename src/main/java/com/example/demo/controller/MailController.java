@@ -15,10 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class MailController {
@@ -85,4 +82,36 @@ public class MailController {
     public BackMessage sendMail(Emil mail){
         return BackMessage.success(service.sendMail(mail));
     }
+
+    @PostMapping("sendMailMath")
+    @ResponseBody
+    public BackMessage sendMailMath(Emil mail, HttpServletRequest request){
+        User user = new User();
+        user.setPhone(mail.getPhone());
+        List<User> users = service.queryUser(user);
+        if(users.size() == 0){
+            return BackMessage.error(BackCommonsEnum.LOGIN_USER_ERROR);
+        }
+        User user1 = users.get(0);
+        mail.setTime(new Date());
+        mail.setFaname(user1.getName());
+        mail.setPhone(user1.getPhone());
+        mail.setUsername(user1.getName());
+        return BackMessage.success(service.sendMailMath(mail,  request));
+    }
+
+    @PostMapping("MailLogin")
+    @ResponseBody
+    public BackMessage MailLogin(String phone, Integer sendMsg, HttpServletRequest request){
+        User user = new User();
+        user.setPhone(phone);
+        List<User> users = service.queryUser(user);
+        Integer attribute = (Integer) request.getSession().getAttribute("content" + phone);
+        if(attribute == sendMsg){
+            return BackMessage.success(users.get(0));
+        }else {
+            return BackMessage.error(BackCommonsEnum.LOGIN_CODE_ERROR);
+        }
+    }
+
 }

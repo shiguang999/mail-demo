@@ -18,4 +18,6 @@ public interface MailDao {
     void updateUser(@Param("user")User user);
 
     void add(@Param("user")User user);
+
+    void addMail(@Param("user") Emil mail);
 }

@@ -27,7 +27,7 @@
     </select>
 
     <select id="queryMail" parameterType="com.example.demo.entrty.Emil" resultType="com.example.demo.entrty.Emil">
-        select * from mail
+        select * from emil
         <where>
             <if test="user.id != null">
                 and id = #{user.id}
@@ -62,5 +62,9 @@
 
     <insert id="add" parameterType="com.example.demo.entrty.User">
         insert into user (name,password,phone,loginname) values (#{user.name},#{user.password},#{user.phone},#{user.loginname})
+    </insert>
+
+    <insert id="addMail" parameterType="com.example.demo.entrty.User">
+        insert into emil (username,status,message,time,phone,faname) values (#{user.username},#{user.status},#{user.message},#{user.time},#{user.phone},#{user.faname})
     </insert>
 </mapper>

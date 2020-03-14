@@ -59,11 +59,11 @@
                             <div class="layui-row">
                                 <div class="layui-col-xs7">
                                     <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-vercode">&#xe672;</label>
-                                    <input type="text" name="vercode" id="LAY-user-login-vercode-2" lay-verType="tips" lay-verify="required" placeholder="手机号" class="layui-input">
+                                    <input type="text" name="phone" id="LAY-user-login-vercode-2" lay-verType="tips" lay-verify="required" placeholder="手机号" class="layui-input">
                                 </div>
                                 <div class="layui-col-xs5">
                                     <div style="margin-left: 10px;">
-                                        <button type="button" 	class="layui-btn layui-btn-sm layui-btn-danger">获取验证码</button>
+                                        <button  lay-submit lay-filter="LAY-user-login-submit-4"	class="layui-btn layui-btn-sm layui-btn-danger">获取验证码</button>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                 }, 1000);
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.msg,{icon: 2});
+                layer.msg(result.data,{icon: 2});
             }
         }, "json");
     });
@@ -170,12 +170,12 @@
         //obj.field.codeKey = codeKey;
         //layer.log(1);
         console.log(obj.field)
-        $.post("addUser", obj.field, function(result) {
+        $.post("MailLogin", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.msg,{icon: 2});
+                layer.msg(result.data,{icon: 2});
             }
         }, "json");
     });
@@ -184,15 +184,27 @@
     layui.form.on('submit(LAY-user-login-submit-3)', function(obj) {
         //obj.field.codeKey = codeKey;
         $.post("addUser", obj.field, function(result) {
-            if (result.msg == 'ok') {
-                layer.msg('注册成功',{icon: 1});
-                // localStorage.setItem("user", JSON.stringify(result.data));
+            if (result.code == 200) {
+                layer.msg(result.msg,{icon: 1});
+            } else {
+                layer.closeAll('loading');
+                layer.msg(result.data,{icon: 2});
+            }
+        }, "json");
+    });
+
+    layui.form.on('submit(LAY-user-login-submit-4)', function(obj) {
+        //obj.field.codeKey = codeKey;
+        $.post("sendMailMath", obj.field, function(result) {
+            if (result.code == 200) {
+                layer.msg(result.msg,{icon: 1});
+                localStorage.setItem("user", JSON.stringify(result.data));
                 setTimeout(function() {
                     location.replace("toLogin");
                 }, 1000);
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.msg,{icon: 2});
+                layer.msg(result.data,{icon: 2});
             }
         }, "json");
     });

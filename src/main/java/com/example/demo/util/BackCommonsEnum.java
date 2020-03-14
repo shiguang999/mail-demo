@@ -8,7 +8,7 @@ public enum BackCommonsEnum {
     LOGIN_ISNOT_USERNAMEORPWD(50001,"用户名或者密码不能为空！"),
     LOGIN_USER_ERROR(50002,"用户名不存在，请注册！"),
     LOGIN_PWD_ERROR(50003,"密码错误！"),
-    LOGIN_STATUS(50004,"账号已被锁定，请明天登录！"),
+    LOGIN_STATUS(50004,"已发送！"),
     LOGIN_CODE_ERROR(50006,"验证码错误！"),
     LOGIN_PHONECODE_ERROR(50007,"短信验证码错误！"),
     LOGIN_MAILCODE_ERROR(50008,"邮件验证码错误！");
