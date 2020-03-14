@@ -5,14 +5,17 @@ import com.example.demo.entrty.Emil;
 import com.example.demo.entrty.User;
 import com.example.demo.send.SendsmsDemo;
 import com.example.demo.service.MailService;
+import com.example.demo.util.PageEntity;
 import com.example.demo.util.BackCommonsEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -21,8 +24,15 @@ public class MailServiceImpl implements MailService {
     private MailDao dao;
 
     @Override
-    public List<User> queryUser(User user) {
-        return dao.queryUser(user);
+    public PageEntity<User> queryUser(User user, PageEntity<User> pageData) {
+        Map map=new HashMap();
+        map.put("page",pageData);
+        map.put("user",user);
+        Long count=dao.queryCount(user);
+        pageData.setCount(count);
+        List<User> stuList=dao.queryPageList(map);
+        pageData.setData(stuList);
+        return pageData;
     }
 
     @Override
@@ -69,6 +79,11 @@ public class MailServiceImpl implements MailService {
         mail.setTime(new Date());
         dao.addMail(mail);
         return null;
+    }
+
+    @Override
+    public User queryUserById(User user) {
+        return dao.queryUserById(user);
     }
 
     @Override
