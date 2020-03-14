@@ -42,11 +42,11 @@
                     <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
-                            <input type="text" name="username" id="LAY-user-login-username-1" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
+                            <input type="text" name="loginname" id="LAY-user-login-username-1" lay-verType="tips" lay-verify="required" placeholder="用户名" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="upassword" id="LAY-user-login-password-1" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
+                            <input type="password" name="password" id="LAY-user-login-password-1" lay-verType="tips" lay-verify="required" placeholder="密码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 录</button>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="upassword" id="LAY-user-login-password-2" lay-verType="tips" lay-verify="required" placeholder="输入验证码" class="layui-input">
+                            <input type="password" name="password" id="LAY-user-login-password-2" lay-verType="tips" lay-verify="required" placeholder="输入验证码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit-2">登 录</button>
@@ -156,7 +156,7 @@
                 layer.msg(result.msg,{icon: 1});
                 localStorage.setItem("user", JSON.stringify(result.data));
                 setTimeout(function() {
-                    location.replace("<%=request.getContextPath()%>/tomain");
+                    location.replace("toIndex");
                 }, 1000);
             } else {
                 layer.closeAll('loading');
@@ -173,10 +173,6 @@
         $.post("addUser", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
-                localStorage.setItem("user", JSON.stringify(result.data));
-                setTimeout(function() {
-                    location.replace("<%=request.getContextPath()%>/tomain");
-                }, 1000);
             } else {
                 layer.closeAll('loading');
                 layer.msg(result.msg,{icon: 2});

@@ -54,23 +54,32 @@ public class MailController {
     @ResponseBody
     public Map addUser(User user){
         Map map = new HashMap();
+        map.put("code",200);
         map.put("msg",service.addUser(user));
         return map;
     }
 
     @PostMapping("login")
-    public String login(User user){
+    @ResponseBody
+    public Map login(User user){
+        Map map = new HashMap();
+        map.put("code",200);
         if(null == user.getLoginname()){
-            return "用户名为空";
+            map.put("msg","用户名为空");
+            return map;
         }
         if(null == user.getPassword()){
-            return "密码为空";
+            map.put("msg","密码为空");
+            return map;
         }
         List<User> users = service.queryUser(user);
-        if(null == users){
-            return "用户名或密码错误";
+        if(users.size() == 0){
+            map.put("msg","用户名或密码错误");
+            return map;
         }
-        return "index";
+        map.put("msg","成功");
+        map.put("data",users.get(0));
+        return map;
     }
 
     @PostMapping("queryMail")
