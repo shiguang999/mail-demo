@@ -183,21 +183,16 @@
     //注册
     layui.form.on('submit(LAY-user-login-submit-3)', function(obj) {
         //obj.field.codeKey = codeKey;
-        //layer.log(1);
-        console.log(obj.field)
-        layer.msg(1);
         $.post("addUser", obj.field, function(result) {
-            layer.msg(2);
-            alert(result);
-            if (result == 'ok') {
-                layer.msg(result,{icon: 1});
-                localStorage.setItem("user", JSON.stringify(result.data));
-                // setTimeout(function() {
-                //     location.replace("<%=request.getContextPath()%>/tomain");
-                // }, 1000);
+            if (result.msg == 'ok') {
+                layer.msg('注册成功',{icon: 1});
+                // localStorage.setItem("user", JSON.stringify(result.data));
+                setTimeout(function() {
+                    location.replace("toLogin");
+                }, 1000);
             } else {
                 layer.closeAll('loading');
-                layer.msg(result,{icon: 2});
+                layer.msg(result.msg,{icon: 2});
             }
         }, "json");
     });
