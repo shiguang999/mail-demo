@@ -13,4 +13,6 @@ public interface MailService {
     String updateUser(User user);
 
     String addUser(User user);
+
+    Object sendMail(Emil mail);
 }

@@ -52,4 +52,10 @@ public class MailServiceImpl implements MailService {
         dao.add(user);
         return "ok";
     }
+
+    @Override
+    public Object sendMail(Emil mail) {
+
+        return null;
+    }
 }
