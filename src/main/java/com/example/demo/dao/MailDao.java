@@ -13,9 +13,9 @@ import java.util.List;
 public interface MailDao {
     List<User> queryUser(@Param("user") User user);
 
-    List<Emil> queryMail(Emil user);
+    List<Emil> queryMail(@Param("user")Emil user);
 
-    void updateUser(User user);
+    void updateUser(@Param("user")User user);
 
-    void add(User user);
+    void add(@Param("user")User user);
 }

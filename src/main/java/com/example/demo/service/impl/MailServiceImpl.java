@@ -40,13 +40,13 @@ public class MailServiceImpl implements MailService {
         User u = new User();
         u.setLoginname(user.getLoginname());
         List<User> users = dao.queryUser(u);
-        if (users != null) {
+        if (users.size() != 0) {
             return "用户名已存在";
         }
         User u2 = new User();
         u2.setPhone(user.getPhone());
         List<User> users2 = dao.queryUser(u2);
-        if (users2 != null) {
+        if (users2.size() != 0) {
             return "手机号已注册";
         }
         dao.add(user);
