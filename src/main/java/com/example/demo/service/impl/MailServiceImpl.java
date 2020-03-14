@@ -4,10 +4,13 @@ import com.example.demo.dao.MailDao;
 import com.example.demo.entrty.Emil;
 import com.example.demo.entrty.User;
 import com.example.demo.service.MailService;
+import com.example.demo.util.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -16,8 +19,15 @@ public class MailServiceImpl implements MailService {
     private MailDao dao;
 
     @Override
-    public List<User> queryUser(User user) {
-        return dao.queryUser(user);
+    public PageEntity<User> queryUser(User user, PageEntity<User> pageData) {
+        Map map=new HashMap();
+        map.put("page",pageData);
+        map.put("user",user);
+        Long count=dao.queryCount(user);
+        pageData.setCount(count);
+        List<User> stuList=dao.queryPageList(map);
+        pageData.setData(stuList);
+        return pageData;
     }
 
     @Override
@@ -57,5 +67,10 @@ public class MailServiceImpl implements MailService {
     public Object sendMail(Emil mail) {
 
         return null;
+    }
+
+    @Override
+    public User queryUserById(User user) {
+        return dao.queryUserById(user);
     }
 }

@@ -5,6 +5,7 @@ import com.example.demo.entrty.User;
 import com.example.demo.service.MailService;
 import com.example.demo.util.BackCommonsEnum;
 import com.example.demo.util.BackMessage;
+import com.example.demo.util.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,16 @@ public class MailController {
         return "bjdx";
     }
 
+    @RequestMapping("toUser")
+    public String toUser(){
+        return "user";
+    }
+
+    @RequestMapping("toDxcx")
+    public String toDxcx(){
+        return "dxcx";
+    }
+
     @GetMapping("toIndex")
     public String toIndex(){
         return "index";
@@ -41,10 +52,11 @@ public class MailController {
         return "login";
     }
 
-    @PostMapping("queryUser")
+    @GetMapping("queryUser")
     @ResponseBody
-    public BackMessage queryUser(User user){
-        return BackMessage.success(service.queryUser(user));
+    public PageEntity<User> queryUser(User user, Integer page, Integer limit){
+        PageEntity<User> pageData=new PageEntity<User>(page,limit);
+        return service.queryUser(user,pageData);
     }
 
     @PostMapping("addOrUpdateUser")
@@ -66,12 +78,12 @@ public class MailController {
         if(null == user.getLoginname() || null == user.getPassword()){
             return BackMessage.success(BackCommonsEnum.LOGIN_ISNOT_USERNAMEORPWD);
         }
-        List<User> users = service.queryUser(user);
-        if(users.size() == 0){
+        User users = service.queryUserById(user);
+        if(users == null){
             return BackMessage.success(BackCommonsEnum.LOGIN_USER_ERROR);
         }
-        request.getSession().setAttribute("user",users.get(0));
-        return BackMessage.success(users.get(0));
+        request.getSession().setAttribute("user",users);
+        return BackMessage.success(users);
     }
 
     @PostMapping("queryMail")
