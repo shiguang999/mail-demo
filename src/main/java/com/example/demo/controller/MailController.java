@@ -100,11 +100,10 @@ public class MailController {
     public BackMessage sendMailMath(Emil mail, HttpServletRequest request){
         User user = new User();
         user.setPhone(mail.getPhone());
-        List<User> users = service.queryUser(user);
-        if(users.size() == 0){
+        User user1 = service.queryUserById(user);
+        if(user1 == null){
             return BackMessage.error(BackCommonsEnum.LOGIN_USER_ERROR);
         }
-        User user1 = users.get(0);
         mail.setTime(new Date());
         mail.setFaname(user1.getName());
         mail.setPhone(user1.getPhone());
@@ -117,10 +116,10 @@ public class MailController {
     public BackMessage MailLogin(String phone, Integer sendMsg, HttpServletRequest request){
         User user = new User();
         user.setPhone(phone);
-        List<User> users = service.queryUser(user);
+        User user1 = service.queryUserById(user);
         Integer attribute = (Integer) request.getSession().getAttribute("content" + phone);
         if(attribute == sendMsg){
-            return BackMessage.success(users.get(0));
+            return BackMessage.success(user);
         }else {
             return BackMessage.error(BackCommonsEnum.LOGIN_CODE_ERROR);
         }
