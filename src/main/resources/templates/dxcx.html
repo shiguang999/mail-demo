@@ -1,106 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>短信信息</title>
     <link rel="stylesheet" href="/static/commons/assets/libs/layui/css/layui.css" />
-    <script type="text/javascript" src="/static/commons/assets/libs/layui/layui.js"></script>
     <script type="text/javascript" src="/static/commons/assets/libs/jquery/jquery-3.2.1.min.js" ></script>
 </head>
 <body>
-<table class="layui-hide" id="test" lay-filter="test"></table>
 
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">查询</div>
+                <div class="layui-card-body">
+                    <form class="layui-form" id="searchFormId">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" id="snameSearchId" placeholder="请输入姓名" class="layui-input">
+                                </div>
+                            </div>
+                            <!--<div class="layui-inline">
+                                <label class="layui-form-label">性别：</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="nsexSearch" value="1" title="男" lay-filter="sex">
+                                    <input type="radio" name="nsexSearch" value="2" title="女" lay-filter="sex">
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" type="button" data-type="reload" id="selectStu">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div>
+                        <!-- 数据表格 -->
+                        <table class="layui-hide" id="userTable" lay-filter="test"></table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
-</script>
-
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-
-
+</div>
 
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
         table.render({
-            elem: '#test'
-            ,url:'queryUser'
-            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-                title: '提示'
-                ,layEvent: 'LAYTABLE_TIPS'
-                ,icon: 'layui-icon-tips'
-            }]
-            ,title: '用户数据表'
-            ,cols: [
+            elem: '#userTable'
+            ,url:'queryMail'
+            ,title: '短信信息'
+            ,method:'post'
+            ,cols:
+                [
                     [
-                    {type: 'checkbox', fixed: 'left', rowspan: 2}
-                    ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, rowspan: 2}
-                    ,{field:'name', title:'姓名', fixed: 'left',unresize: true, rowspan: 2}
-                    ,{field:'phone', title:'手机号',   rowspan: 2}
-                    ,{field:'loginname', title:'登录名',  rowspan: 2}
-                    ,{field:'password', title:'密码',  rowspan: 2,templet:function (d) {
-                            return '*******';
-                        }
-                    }
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                        {type: 'checkbox', fixed: 'left', rowspan: 2}
+                        ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, rowspan: 2}
+                        ,{field:'username', title:'姓名', fixed: 'left',unresize: true, rowspan: 2}
+                        ,{field:'phone', title:'手机号',   rowspan: 2}
+
+                    ]
                 ]
-            ]
             ,page: true
+
         });
 
-        //头工具栏事件
-        table.on('toolbar(test)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
-
-                //自定义头工具栏右侧图标 - 提示
-                case 'LAYTABLE_TIPS':
-                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
-                    break;
-            };
-        });
-
-        //监听行工具事件
-        table.on('tool(test)', function(obj){
-            var data = obj.data;
-            //console.log(obj)
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
+        //条件查询
+        var $ = layui.jquery, active = {
+            reload:function () {
+                var obj = {};
+                var formArray = $("#searchFormId").serializeArray();
+                $.each(formArray, function () {
+                    if (obj[this.name] !== undefined) {
+                        if (!obj[this.name].push) {
+                            obj[this.name] = [obj[this.name]];
+                        }
+                        obj[this.name].push(this.value || '');
+                    } else {
+                        obj[this.name] = this.value || '';
+                    }
                 });
-            } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+
+                obj.insuranceStatus=$("[name='insuranceStatusSearch']:checked").val();
+                obj.extrasStatus=$("[name='extrasStatusSearch']:checked").val();
+                obj.nsex=$("[name='nsexSearch']:checked").val();
+
+                table.reload('userTable',{
+                    method:'post',
+                    page:{
+                        curr:1
+                    },
+                    where:obj
                 });
+
             }
+        };
+
+        $('#selectStu').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
-    });
+    })
+
 </script>
 </body>
 </html>

@@ -27,5 +27,9 @@ public interface MailDao {
 
     List<User> queryPageList(Map map);
 
+    Long queryEmailCount(@Param("email") Emil email);
+
+    List<Emil> queryPageEmailList(Map map);
+
     void addMail(@Param("user") Emil mail);
 }

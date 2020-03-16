@@ -20,7 +20,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">姓名：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="sname" id="snameSearchId" placeholder="请输入姓名" class="layui-input">
+                                    <input type="text" name="name" id="snameSearchId" placeholder="请输入姓名" class="layui-input">
                                 </div>
                             </div>
                             <!--<div class="layui-inline">
@@ -74,6 +74,7 @@
             elem: '#userTable'
             ,url:'queryUser'
             ,title: '用户信息'
+            ,method:'post'
             ,cols:
                 [
                     [
@@ -94,7 +95,7 @@
         });
 
         //监听行工具事件
-        table.on('tool(table)', function(obj){
+        table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
@@ -127,8 +128,7 @@
                 obj.extrasStatus=$("[name='extrasStatusSearch']:checked").val();
                 obj.nsex=$("[name='nsexSearch']:checked").val();
 
-                table.reload('studentTable',{
-
+                table.reload('userTable',{
                     method:'post',
                     page:{
                         curr:1
@@ -144,6 +144,14 @@
             active[type] ? active[type].call(this) : '';
         });
     })
+
+    function updateStu(data) {
+        alert("修改用户")
+    }
+
+    function deleteStu(data) {
+        alert("删除用户")
+    }
 </script>
 </body>
 </html>

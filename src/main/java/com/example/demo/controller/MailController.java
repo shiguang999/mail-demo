@@ -49,7 +49,7 @@ public class MailController {
         return "login";
     }
 
-    @GetMapping("queryUser")
+    @PostMapping("queryUser")
     @ResponseBody
     public PageEntity<User> queryUser(User user, Integer page, Integer limit){
         PageEntity<User> pageData=new PageEntity<User>(page,limit);
@@ -85,8 +85,9 @@ public class MailController {
 
     @PostMapping("queryMail")
     @ResponseBody
-    public BackMessage queryMail(Emil user){
-        return BackMessage.success(service.queryMail(user));
+    public PageEntity<Emil> queryUser(Emil email, Integer page, Integer limit){
+        PageEntity<Emil> pageData=new PageEntity<Emil>(page,limit);
+        return service.queryMail(email,pageData);
     }
 
     @PostMapping("sendMail")
