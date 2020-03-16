@@ -63,14 +63,14 @@
                                 </div>
                                 <div class="layui-col-xs5">
                                     <div style="margin-left: 10px;">
-                                        <button  lay-submit lay-filter="LAY-user-login-submit-4"	class="layui-btn layui-btn-sm layui-btn-danger">获取验证码</button>
+                                        <button  class="layui-btn layui-btn-sm layui-btn-danger" lay-submit lay-filter="LAY-user-login-submit-4" >获取验证码</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="password" id="LAY-user-login-password-2" lay-verType="tips" lay-verify="required" placeholder="输入验证码" class="layui-input">
+                            <input type="password" name="password" id="LAY-user-login-password-2" lay-verType="tips"  placeholder="输入验证码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit-2">登 录</button>
@@ -160,7 +160,7 @@
                 }, 1000);
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.data,{icon: 2});
+                layer.msg(result.msg,{icon: 2});
             }
         }, "json");
     });
@@ -175,7 +175,7 @@
                 layer.msg(result.msg,{icon: 1});
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.data,{icon: 2});
+                layer.msg(result.msg,{icon: 2});
             }
         }, "json");
     });
@@ -188,7 +188,7 @@
                 layer.msg(result.msg,{icon: 1});
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.data,{icon: 2});
+                layer.msg(result.msg,{icon: 2});
             }
         }, "json");
     });
@@ -204,7 +204,7 @@
                 }, 1000);
             } else {
                 layer.closeAll('loading');
-                layer.msg(result.data,{icon: 2});
+                layer.msg(result.msg,{icon: 2});
             }
         }, "json");
     });
