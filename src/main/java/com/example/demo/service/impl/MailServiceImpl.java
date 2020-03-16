@@ -31,8 +31,15 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public List<Emil> queryMail(Emil user) {
-        return dao.queryMail(user);
+    public PageEntity<Emil> queryMail(Emil email,PageEntity<Emil> pageData) {
+        Map map=new HashMap();
+        map.put("page",pageData);
+        map.put("email",email);
+        Long count=dao.queryEmailCount(email);
+        pageData.setCount(count);
+        List<Emil> stuList=dao.queryPageEmailList(map);
+        pageData.setData(stuList);
+        return pageData;
     }
 
     @Override

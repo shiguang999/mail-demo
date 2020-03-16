@@ -8,11 +8,41 @@
     <script type="text/javascript" src="/static/commons/assets/libs/jquery/jquery-3.2.1.min.js" ></script>
 </head>
 <body>
-<span class="layui-breadcrumb">
-  <a href="">首页</a>
-  <a href="">国际新闻</a>
-  <a href="">亚太地区</a>
-  <a><cite>正文</cite></a>
-</span>
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">发送短信</div>
+                <div class="layui-card-body">
+                    <form class="layui-form" id="searchFormId">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" id="snameSearchId" placeholder="请输入姓名" class="layui-input">
+                                </div>
+                            </div>
+                            <!--<div class="layui-inline">
+                                <label class="layui-form-label">性别：</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="nsexSearch" value="1" title="男" lay-filter="sex">
+                                    <input type="radio" name="nsexSearch" value="2" title="女" lay-filter="sex">
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" type="button" data-type="reload" id="selectStu">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

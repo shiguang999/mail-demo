@@ -9,7 +9,7 @@ import java.util.List;
 public interface MailService {
     PageEntity<User> queryUser(User user, PageEntity<User> pageData);
 
-    List<Emil> queryMail(Emil user);
+    PageEntity<Emil> queryMail(Emil user,PageEntity<Emil> pageData);
 
     String updateUser(User user);
 

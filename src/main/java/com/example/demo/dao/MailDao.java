@@ -15,8 +15,6 @@ import java.util.Map;
 public interface MailDao {
     List<User> queryUser(@Param("user") User user);
 
-    List<Emil> queryMail(@Param("user") Emil user);
-
     void updateUser(@Param("user") User user);
 
     void add(@Param("user") User user);
@@ -26,4 +24,8 @@ public interface MailDao {
     User queryUserById(@Param("user") User user);
 
     List<User> queryPageList(Map map);
+
+    Long queryEmailCount(@Param("email") Emil email);
+
+    List<Emil> queryPageEmailList(Map map);
 }
