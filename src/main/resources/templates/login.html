@@ -186,6 +186,10 @@
         $.post("addUser", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
+                localStorage.setItem("user", JSON.stringify(result.data));
+                setTimeout(function() {
+                    location.replace("toLogin");
+                }, 1000);
             } else {
                 layer.closeAll('loading');
                 layer.msg(result.msg,{icon: 2});
@@ -198,10 +202,6 @@
         $.post("sendMailMath", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
-                localStorage.setItem("user", JSON.stringify(result.data));
-                setTimeout(function() {
-                    location.replace("toLogin");
-                }, 1000);
             } else {
                 layer.closeAll('loading');
                 layer.msg(result.msg,{icon: 2});

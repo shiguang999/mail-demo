@@ -21,10 +21,11 @@ public class SendsmsDemo {
 
         //提交短信
         NameValuePair[] data = {
-
+                //4839f1a37f6e5240109e6bf1cc8fd647
+                //C51843367
                 //  name 和 password 需要自行修改。
-                new NameValuePair("account", "C51843367"), //查看用户名                是登录用户中心->验证码短信->产品总览->APIID
-                new NameValuePair("password", "4839f1a37f6e5240109e6bf1cc8fd647"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
+                new NameValuePair("account", "c2291a6a8f5b"), //查看用户名                是登录用户中心->验证码短信->产品总览->APIID
+                new NameValuePair("password", "3bbf002406315cf21996e0b5b5c0922c"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
                 new NameValuePair("mobile", phone),
                 new NameValuePair("authCode", sendMsg),
         };
