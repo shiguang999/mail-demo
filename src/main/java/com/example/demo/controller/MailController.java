@@ -89,7 +89,7 @@ public class MailController {
 
     @PostMapping("queryUserById")
     @ResponseBody
-    public BackMessage queryUserById(User user ){
+    public BackMessage queryUserById(User user){
         return BackMessage.success(service.queryUserById(user));
     }
 

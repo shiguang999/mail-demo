@@ -38,9 +38,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.kie.modules</groupId>
-            <artifactId>org-apache-commons-httpclient</artifactId>
-            <version>6.2.0.CR2</version>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
         </dependency>
 
         <dependency>

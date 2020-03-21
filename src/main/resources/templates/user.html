@@ -33,7 +33,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" type="button" data-type="reload" id="selectStu">立即提交</button>
+                                <button class="layui-btn" type="button" data-type="reload" id="selectUser">立即提交</button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
 
                         <script type="text/html" id="barDemo">
                             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" id = "delet">删除</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                         </script>
                     </div>
 
@@ -62,9 +62,33 @@
     </div>
 </div>
 
-<!--excelform表单-->
-<script type="text/html" id="excelformId">
-    <form class="layui-form" id="excelform" style="table-layout:fixed;"></form>
+<!--saveform表单-->
+<script type="text/html" id="saveform">
+    <form class="layui-form" id="saveFormId">
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">姓名：</label>
+                <div class="layui-input-inline">
+                    <input type="hidden" name="id" id="id" class="layui-input">
+                    <input type="text" name="name" id="name" placeholder="请输入姓名" class="layui-input">
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">手机号：</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="phone"  id="phone"  placeholder="请输入手机号" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+    </form>
 </script>
 
 <script>
@@ -100,11 +124,11 @@
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
-                    deleteStu(data);
+                    deleteUser(data);
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                updateStu(data);
+                updateUser(data);
             }
         });
 
@@ -139,19 +163,116 @@
             }
         };
 
-        $('#selectStu').on('click', function(){
+        $('#selectUser').on('click', function(){
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-    })
+    });
 
-    function updateStu(data) {
-        alert("修改用户")
+    function updateUser(data) {
+        layer.open({
+            title: '修改信息',
+            type: 1,
+            content: $("#saveform").html(),
+            btnAlign: 'c',
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                var obj = {};
+                var formArray = $("#saveFormId").serializeArray();
+                $.each(formArray, function () {
+                    if (obj[this.name] !== undefined) {
+                        if (!obj[this.name].push) {
+                            obj[this.name] = [obj[this.name]];
+                        }
+                        obj[this.name].push(this.value || '');
+                    } else {
+                        obj[this.name] = this.value || '';
+                    }
+                });
+                console.info(obj);
+
+                $.post('addOrUpdateUser', obj, function (res) {
+                    //判断是否发送成功
+                    if (res.code == 200) {
+                        // layer.msg("修改成功");
+                        layer.close(layer.index);
+                        table.render('userTable',{
+
+                            //渲染表格
+                            //where:{重载条件查询，键值对形式}
+
+                        })
+                    }else {
+                        layer.msg(res.msg);
+                    }
+
+                    // layer.close(layer.index);
+                    // window.parent.location.reload();
+
+                })
+            }, btn2: function (index, layero) {
+                layer.msg("取消");
+                //return false 开启该代码可禁止点击该按钮关闭
+            }, cancel: function () {
+                layer.msg("关闭窗口");
+            },
+
+            success: function () {
+                layui.use(['form',"laydate",'table'], function () {
+                    var form = layui.form; //只有执行了这一步，部分表单元素才会修饰成功
+                    form.render();
+                    var table = parent.window.layui.table;
+                    table.render('userTable',{
+
+                        //渲染表格
+                        //where:{重载条件查询，键值对形式}
+
+                    })
+
+                    //表格重载
+
+                    /*dicTable.reload({
+
+
+
+                })*/
+
+                });
+            }
+        });
+
+        //回显
+        $.ajax({
+            url:"queryUserById",
+            type:"post",
+            data: data,
+            dataType:"json",
+            success:function (result) {
+                if (result.code == 200) {
+                    $("#id").val(result.data.id);
+                    $("#name").val(result.data.name);
+                    $("#phone").val(result.data.phone);
+                }
+            },
+            error:function (result) {
+                layer.msg(result.msg,{time : 800});
+            }
+        });
+
+
     }
 
-    function deleteStu(data) {
-
-        alert("删除用户")
+    function deleteUser(data){
+        $.ajax({
+            url:"deleteUser",
+            data:data,
+            type:"post",
+            success:function () {
+                layer.msg("删除成功",{time : 800});
+                /*layer.close(layer.index);
+                window.parent.location.reload();*/
+            }
+        })
     }
 </script>
 </body>

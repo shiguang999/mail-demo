@@ -49,11 +49,11 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public String updateUser(User user) {
-        List<User> users = dao.queryUser(user);
-        if (users == null) {
-            return "用户名不存在";
-        }
-        dao.updateUser(user);
+//        List<User> users = dao.queryUser(user);
+//        if (users == null) {
+//            return "用户名不存在";
+//        }
+//        dao.updateUser(user);
         return "ok";
     }
 
