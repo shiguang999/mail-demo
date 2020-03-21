@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -65,8 +63,7 @@ public class MailController {
     @PostMapping("addUser")
     @ResponseBody
     public BackMessage addUser(User user){
-        service.addUser(user);
-        return BackMessage.success();
+        return BackMessage.success(service.addUser(user));
     }
 
     @PostMapping("login")
@@ -90,10 +87,22 @@ public class MailController {
         return service.queryMail(email,pageData);
     }
 
+    @PostMapping("queryUserById")
+    @ResponseBody
+    public BackMessage queryUserById(User user ){
+        return BackMessage.success(service.queryUserById(user));
+    }
+
     @PostMapping("sendMail")
     @ResponseBody
     public BackMessage sendMail(Emil mail){
         return BackMessage.success(service.sendMail(mail));
+    }
+
+    @PostMapping("deleteUser")
+    @ResponseBody
+    public BackMessage deleteUser(User user){
+        return BackMessage.success(service.deleteUser(user));
     }
 
     @PostMapping("sendMailMath")
@@ -120,7 +129,7 @@ public class MailController {
         User user1 = service.queryUserById(user);
         Integer attribute = (Integer) request.getSession().getAttribute("content" + phone);
         if(attribute == sendMsg){
-            return BackMessage.success(user);
+            return BackMessage.success(user1);
         }else {
             return BackMessage.error(BackCommonsEnum.LOGIN_CODE_ERROR);
         }

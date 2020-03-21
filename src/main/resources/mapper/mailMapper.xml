@@ -133,4 +133,8 @@
     <insert id="addMail" parameterType="com.example.demo.entrty.User">
         insert into emil (username,status,message,time,phone,faname) values (#{user.username},#{user.status},#{user.message},#{user.time},#{user.phone},#{user.faname})
     </insert>
+
+    <delete id="deleteUser" parameterType="com.example.demo.entrty.User">
+        delete  from user where id = #{user.id}
+    </delete>
 </mapper>

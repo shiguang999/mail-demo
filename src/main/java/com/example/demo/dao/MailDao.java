@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.entrty.Emil;
 import com.example.demo.entrty.User;
+import com.example.demo.util.BackCommonsEnum;
 import com.example.demo.util.PageEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,6 @@ public interface MailDao {
     List<Emil> queryPageEmailList(Map map);
 
     void addMail(@Param("user") Emil mail);
+
+    void deleteUser(@Param("user") User user);
 }

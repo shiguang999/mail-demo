@@ -58,21 +58,21 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public String addUser(User user) {
+    public BackCommonsEnum addUser(User user) {
         User u = new User();
         u.setLoginname(user.getLoginname());
-        List<User> users = dao.queryUser(u);
-        if (users.size() != 0) {
-            return "用户名已存在";
+        User users =dao.queryUserById(u);
+        if (users != null) {
+            return  BackCommonsEnum.LOGIN_PHONECODE_ERROR;
         }
         User u2 = new User();
         u2.setPhone(user.getPhone());
-        List<User> users2 = dao.queryUser(u2);
-        if (users2.size() != 0) {
-            return "手机号已注册";
+        User users2 =dao.queryUserById(u2);
+        if (users2 != null) {
+            return BackCommonsEnum.LOGIN_MAILCODE_ERROR;
         }
         dao.add(user);
-        return "ok";
+        return BackCommonsEnum.LOGIN_PWD_ERROR;
     }
 
     @Override
@@ -91,6 +91,12 @@ public class MailServiceImpl implements MailService {
     @Override
     public User queryUserById(User user) {
         return dao.queryUserById(user);
+    }
+
+    @Override
+    public BackCommonsEnum deleteUser(User user) {
+        dao.deleteUser(user);
+        return BackCommonsEnum.SUCCESS;
     }
 
     @Override

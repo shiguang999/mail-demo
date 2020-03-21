@@ -15,11 +15,13 @@ public interface MailService {
 
     String updateUser(User user);
 
-    String addUser(User user);
+    BackCommonsEnum addUser(User user);
 
     Object sendMail(Emil mail);
 
     BackCommonsEnum sendMailMath(Emil mail, HttpServletRequest request);
 
     User queryUserById(User user);
+
+    BackCommonsEnum deleteUser(User user);
 }
