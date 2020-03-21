@@ -135,6 +135,11 @@
     </insert>
 
     <delete id="deleteUser" parameterType="com.example.demo.entrty.User">
-        delete  from user where id = #{user.id}
+        delete  from user where id = #{id}
     </delete>
+
+    <update id="updateuserById" parameterType="com.example.demo.entrty.User">
+        update user set name = #{user.name},phone =  #{user.phone} whee id = #{user.id}
+    </update>
+
 </mapper>

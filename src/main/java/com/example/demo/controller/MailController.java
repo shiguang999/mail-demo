@@ -93,6 +93,12 @@ public class MailController {
         return BackMessage.success(service.queryUserById(user));
     }
 
+    @PostMapping("updateuserById")
+    @ResponseBody
+    public BackMessage updateuserById(User user){
+        return BackMessage.success(service.updateuserById(user));
+    }
+
     @PostMapping("sendMail")
     @ResponseBody
     public BackMessage sendMail(Emil mail){

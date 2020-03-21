@@ -9,6 +9,7 @@ import com.example.demo.util.PageEntity;
 import com.example.demo.util.BackCommonsEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -94,8 +95,16 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
+    @Transactional
     public BackCommonsEnum deleteUser(User user) {
-        dao.deleteUser(user);
+        Integer id = user.getId();
+        dao.deleteUser(id);
+        return BackCommonsEnum.SUCCESS;
+    }
+
+    @Override
+    public BackCommonsEnum updateuserById(User user) {
+        dao.updateuserById(user);
         return BackCommonsEnum.SUCCESS;
     }
 

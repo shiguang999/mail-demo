@@ -24,4 +24,6 @@ public interface MailService {
     User queryUserById(User user);
 
     BackCommonsEnum deleteUser(User user);
+
+    BackCommonsEnum updateuserById(User user);
 }

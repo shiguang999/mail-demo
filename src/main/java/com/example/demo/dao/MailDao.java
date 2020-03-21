@@ -34,5 +34,7 @@ public interface MailDao {
 
     void addMail(@Param("user") Emil mail);
 
-    void deleteUser(@Param("user") User user);
+    void deleteUser(Integer id);
+
+    void updateuserById(@Param("user") User user);
 }
