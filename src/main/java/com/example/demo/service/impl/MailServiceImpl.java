@@ -117,10 +117,10 @@ public class MailServiceImpl implements MailService {
     @Override
     public BackCommonsEnum sendMailMath(Emil mail, HttpServletRequest request) {
         int mobile_code = (int) ((Math.random() * 9 + 1) * 100000);
-        String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
+//        String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
         boolean s = false;
         try {
-            s = SendsmsDemo.sendSms(content,mail.getPhone());
+            s = SendsmsDemo.sendSms(String.valueOf(mobile_code),mail.getPhone());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,7 +129,7 @@ public class MailServiceImpl implements MailService {
         }else {
             mail.setStatus(0);
         }
-        mail.setMessage(content);
+        mail.setMessage(String.valueOf(mobile_code));
         mail.setTime(new Date());
         dao.addMail(mail);
         HttpSession session = request.getSession();

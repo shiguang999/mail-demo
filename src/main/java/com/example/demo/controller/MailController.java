@@ -127,14 +127,14 @@ public class MailController {
         return BackMessage.success(service.sendMailMath(mail,  request));
     }
 
-    @PostMapping("MailLogin")
+    @PostMapping("mailLogin")
     @ResponseBody
-    public BackMessage MailLogin(String phone, Integer sendMsg, HttpServletRequest request){
+    public BackMessage mailLogin(Emil mail,  HttpServletRequest request){
         User user = new User();
-        user.setPhone(phone);
+        user.setPhone(mail.getPhone());
         User user1 = service.queryUserById(user);
-        Integer attribute = (Integer) request.getSession().getAttribute("content" + phone);
-        if(attribute == sendMsg){
+        String attribute = (String) request.getSession().getAttribute("content" + mail.getPhone());
+        if(null != attribute && attribute.equals(mail.getMessage())){
             return BackMessage.success(user1);
         }else {
             return BackMessage.error(BackCommonsEnum.LOGIN_CODE_ERROR);

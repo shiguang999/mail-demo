@@ -41,7 +41,7 @@ public class SendsmsDemo {
 //设置请求参数
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("mobile", phone));
-        nameValuePairs.add(new BasicNameValuePair("authCode", "2222"));
+        nameValuePairs.add(new BasicNameValuePair("authCode", sendMsg));
 
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
 

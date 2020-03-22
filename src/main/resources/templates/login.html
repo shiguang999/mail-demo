@@ -70,7 +70,7 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
-                            <input type="password" name="password" id="LAY-user-login-password-2" lay-verType="tips"  placeholder="输入验证码" class="layui-input">
+                            <input type="text" name="message" id="LAY-user-login-password-2" lay-verType="tips"  placeholder="输入验证码" class="layui-input">
                         </div>
                         <div class="layui-form-item">
                             <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit-2">登 录</button>
@@ -149,8 +149,6 @@
     //提交
     layui.form.on('submit(LAY-user-login-submit)', function(obj) {
         //obj.field.codeKey = codeKey;
-        layer.load(1);
-        console.log(obj.field)
         $.post("login", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
@@ -168,9 +166,8 @@
     //手机号注册
     layui.form.on('submit(LAY-user-login-submit-2)', function(obj) {
         //obj.field.codeKey = codeKey;
-        //layer.log(1);
         console.log(obj.field)
-        $.post("MailLogin", obj.field, function(result) {
+        $.post("mailLogin", obj.field, function(result) {
             if (result.code == 200) {
                 layer.msg(result.msg,{icon: 1});
             } else {

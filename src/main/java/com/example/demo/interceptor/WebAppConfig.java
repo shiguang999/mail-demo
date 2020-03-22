@@ -13,6 +13,13 @@ public class WebAppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns("/toLogin").excludePathPatterns("/sendMailMath").excludePathPatterns("/addUser").excludePathPatterns("/login").excludePathPatterns("/static/**");
+        registry.addInterceptor(interceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/toLogin")
+                .excludePathPatterns("/sendMailMath")
+                .excludePathPatterns("/addUser")
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/mailLogin")
+                .excludePathPatterns("/static/**");
     }
 }
