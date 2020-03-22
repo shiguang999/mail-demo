@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -78,8 +79,13 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public Object sendMail(Emil mail) {
-        String s = SendsmsDemo.sendSms(mail.getMessage(), mail.getPhone());
-        if(s != "" && s != null){
+        boolean s = false;
+        try {
+            s = SendsmsDemo.sendSms(mail.getMessage(), mail.getPhone());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(s){
             mail.setStatus(1);
         }else {
             mail.setStatus(0);
@@ -112,8 +118,13 @@ public class MailServiceImpl implements MailService {
     public BackCommonsEnum sendMailMath(Emil mail, HttpServletRequest request) {
         int mobile_code = (int) ((Math.random() * 9 + 1) * 100000);
         String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
-        String s = SendsmsDemo.sendSms(content,mail.getPhone());
-        if(s != "" && s != null){
+        boolean s = false;
+        try {
+            s = SendsmsDemo.sendSms(content,mail.getPhone());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(s){
             mail.setStatus(1);
         }else {
             mail.setStatus(0);

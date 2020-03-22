@@ -1,63 +1,61 @@
 package com.example.demo.send;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import com.alibaba.fastjson.JSON;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class SendsmsDemo {
 
-    private static String Url = "https://api.netease.im/sms/sendcode.action";                //直接将示例代码中的URL 拿过来用就行。
+    private static final String SERVER_URL = "https://api.netease.im/sms/sendcode.action";//请求的URL
+    private static final String APP_KEY = "3bbf002406315cf21996e0b5b5c0922c";//网易云分配的账号
+    private static final String APP_SECRET = "c2291a6a8f5b";//密码
+    // private static final String MOULD_ID="3057527";//模板ID
+    private static final String NONCE = "123456";//随机数
+    //验证码长度，范围4～10，默认为4
+    private static final String CODELEN = "6";
 
-    public static String sendSms(String sendMsg ,String phone) {
+    public static boolean sendSms(String sendMsg,String phone) throws IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost post = new HttpPost(SERVER_URL);
 
-        HttpClient client = new HttpClient();
-        PostMethod method = new PostMethod(Url);
+        String curTime = String.valueOf((new Date().getTime() / 1000L));
+        String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
 
-        client.getParams().setContentCharset("utf-8");
-        method.setRequestHeader("ContentType", "application/x-www-form-urlencoded;charset=utf-8");
+//设置请求的header
+        post.addHeader("AppKey", APP_KEY);
+        post.addHeader("Nonce", NONCE);
+        post.addHeader("CurTime", curTime);
+        post.addHeader("CheckSum", checkSum);
+        post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+//设置请求参数
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("mobile", phone));
+        nameValuePairs.add(new BasicNameValuePair("authCode", "2222"));
 
-        //提交短信
-        NameValuePair[] data = {
-                //4839f1a37f6e5240109e6bf1cc8fd647
-                //C51843367
-                //  name 和 password 需要自行修改。
-                new NameValuePair("account", "c2291a6a8f5b"), //查看用户名                是登录用户中心->验证码短信->产品总览->APIID
-                new NameValuePair("password", "3bbf002406315cf21996e0b5b5c0922c"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
-                new NameValuePair("mobile", phone),
-                new NameValuePair("authCode", sendMsg),
-        };
-        method.setRequestBody(data);
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
 
-        try {
-            client.executeMethod(method);
+//执行请求
+        HttpResponse response = httpclient.execute(post);
+        String responseEntity = EntityUtils.toString(response.getEntity(), "utf-8");
 
-            String SubmitResult = method.getResponseBodyAsString();
-
-            System.out.println(SubmitResult);
-
-            Document doc = DocumentHelper.parseText(SubmitResult);
-            Element root = doc.getRootElement();
-
-            String code = root.elementText("code");
-            String msg = root.elementText("msg");
-            String smsid = root.elementText("obj");
-
-            System.out.println(code);
-            System.out.println(msg);
-            System.out.println(smsid);
-
-            if ("200".equals(code)) {
-                System.out.println("短信提交成功");
-                return sendMsg;
-            } else return "";
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-
+//判断是否发送成功，发送成功返回true  {"code":200,"msg":"302","obj":"2222"}
+        String code = JSON.parseObject(responseEntity).getString("code");
+        if (code.equals("200")) {
+            return true;
         }
+//System.out.println(re);
+        return false;
     }
+
 }
