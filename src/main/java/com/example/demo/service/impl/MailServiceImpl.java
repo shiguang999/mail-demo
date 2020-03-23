@@ -8,6 +8,8 @@ import com.example.demo.service.MailService;
 import com.example.demo.util.PageEntity;
 import com.example.demo.util.BackCommonsEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,19 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class MailServiceImpl implements MailService {
+
+    @Value("${message.appkey}")
+    private  String appkey;
+    @Value("${message.appsecret}")
+    private  String appsecret;
+    @Value("${message.mouldid}")
+    private  String mouldid;
+    @Value("${message.nonce}")
+    private  String nonce;
+    @Value("${message.codelen}")
+    private  String codelen;
 
     @Autowired
     private MailDao dao;
@@ -79,12 +93,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public Object sendMail(Emil mail) {
-        boolean s = false;
-        try {
-            s = SendsmsDemo.sendSms(mail.getMessage(), mail.getPhone());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        boolean s = sendSms(mail.getMessage(), mail.getPhone());
         if(s){
             mail.setStatus(1);
         }else {
@@ -118,12 +127,8 @@ public class MailServiceImpl implements MailService {
     public BackCommonsEnum sendMailMath(Emil mail, HttpServletRequest request) {
         int mobile_code = (int) ((Math.random() * 9 + 1) * 100000);
 //        String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
-        boolean s = false;
-        try {
-            s = SendsmsDemo.sendSms(String.valueOf(mobile_code),mail.getPhone());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendSms(String.valueOf(mobile_code),mail.getPhone());
+        boolean s = sendSms(String.valueOf(mobile_code),mail.getPhone());
         if(s){
             mail.setStatus(1);
         }else {
@@ -136,5 +141,21 @@ public class MailServiceImpl implements MailService {
         session.setAttribute("content" + mail.getPhone(),mobile_code);
         session.setMaxInactiveInterval(300);
         return BackCommonsEnum.LOGIN_STATUS;
+    }
+
+    public boolean sendSms(String mobile_code,String phone){
+        Map<String, String> map = new HashMap();
+        map.put("APP_SECRET",appkey);
+        map.put("APP_SECRET",appsecret);
+        map.put("MOULD_ID",mouldid);
+        map.put("NONCE",nonce);
+        map.put("CODELEN",codelen);
+        boolean s = false;
+        try {
+            s = SendsmsDemo.sendSms(mobile_code,phone, map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
     }
 }

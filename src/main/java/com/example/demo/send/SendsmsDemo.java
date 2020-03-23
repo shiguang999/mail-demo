@@ -9,32 +9,35 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class SendsmsDemo {
 
     private static final String SERVER_URL = "https://api.netease.im/sms/sendcode.action";//请求的URL
-    private static final String APP_KEY = "3bbf002406315cf21996e0b5b5c0922c";//网易云分配的账号
-    private static final String APP_SECRET = "c2291a6a8f5b";//密码
+   /* private static final String APP_KEY = appkey;//网易云分配的账号
+    private static final String APP_SECRET = appsecret;//密码*/
     // private static final String MOULD_ID="3057527";//模板ID
-    private static final String NONCE = "123456";//随机数
+//    private static final String NONCE = "123456";//随机数
     //验证码长度，范围4～10，默认为4
     private static final String CODELEN = "6";
 
-    public static boolean sendSms(String sendMsg,String phone) throws IOException {
+    public static boolean sendSms(String sendMsg, String phone, Map<String, String> map) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost post = new HttpPost(SERVER_URL);
 
         String curTime = String.valueOf((new Date().getTime() / 1000L));
-        String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
+        String checkSum = CheckSumBuilder.getCheckSum(map.get("APP_SECRET"), map.get("NONCE"), curTime);
 
 //设置请求的header
-        post.addHeader("AppKey", APP_KEY);
-        post.addHeader("Nonce", NONCE);
+        post.addHeader("AppKey", map.get("APP_KEY"));
+        post.addHeader("Nonce", map.get("NONCE"));
         post.addHeader("CurTime", curTime);
         post.addHeader("CheckSum", checkSum);
         post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
